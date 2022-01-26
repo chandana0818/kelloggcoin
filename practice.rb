@@ -19,6 +19,37 @@ blockchain = [
 
 # Write code below that returns the number of KelloggCoin that each user has in their 
 # KelloggCoin "wallet".
+#wallet = {user: balance}
+users = []
+wallet = {}
+for i in blockchain
+  if i[:from_user] != nil && !(users.include? i[:from_user])
+    users.push(i[:from_user])
+  end
+  if (i[:to_user] != nil) && !(users.include? i[:to_user])
+    users.push(i[:to_user])
+  end
+end
+
+for x in users
+  wallet[x] = 0
+end
+for x in users
+  for y in blockchain
+    if y[:from_user] == x
+      wallet[x] = wallet[x] - y[:amount]
+    elsif y[:to_user] == x
+      wallet[x] = wallet[x] + y[:amount]
+    end
+  end
+end
+# puts users
+# puts wallet
+
+wallet.each do |key, value|
+  puts key + "'s KelloggCoin balance is " + value.to_s()
+end
+
 
 # It should print out:
 # Ben's KelloggCoin balance is 14000
